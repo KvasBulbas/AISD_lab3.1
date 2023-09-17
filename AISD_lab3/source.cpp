@@ -12,6 +12,6 @@ int main()
 
 	
 	obj1.printTree();
-
+	SearchTree obj2;
 
 }
