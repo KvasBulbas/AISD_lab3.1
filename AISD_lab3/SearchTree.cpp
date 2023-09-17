@@ -48,12 +48,12 @@ BinaryTree::Node* SearchTree::addNode(Node* nd, const int k)
 
 }
 
-BinaryTree::Node* SearchTree::getMin()
+BinaryTree::Node* SearchTree::getMin() const
 {
 	return getMin(_root);
 }
 
-BinaryTree::Node* SearchTree::getMin(Node* nd)
+BinaryTree::Node* SearchTree::getMin(Node* nd) const
 {
 	if (nd == nullptr)
 		return nullptr;
@@ -66,12 +66,12 @@ BinaryTree::Node* SearchTree::getMin(Node* nd)
 }
 
 
-BinaryTree::Node* SearchTree::getMax()
+BinaryTree::Node* SearchTree::getMax() const
 {
 	return getMax(_root);
 }
 
-BinaryTree::Node* SearchTree::getMax(Node* nd)
+BinaryTree::Node* SearchTree::getMax(Node* nd) const
 {
 	if (nd == nullptr)
 		return nullptr;
@@ -80,4 +80,115 @@ BinaryTree::Node* SearchTree::getMax(Node* nd)
 		return getMax(nd->right);
 	else
 		return nd;
+}
+
+
+BinaryTree::Node* SearchTree::nlrSearch(const int k) const
+{
+	return nlrSearch(_root, k);
+}
+
+
+BinaryTree::Node* SearchTree::nlrSearch(Node* nd, const int k) const
+{
+	if (nd == nullptr)
+		return nullptr;
+
+	if (k == nd->key)
+		return nd;
+
+	if (k < nd->key)
+		return nlrSearch(nd->left, k);
+	else
+		return nlrSearch(nd->right, k);
+
+}
+
+bool SearchTree::deleteNodeByKey(const int k)
+{
+	return deleteNodeByKey(_root, k);
+}
+
+bool SearchTree::deleteNodeByKey(Node* nd, const int k)
+{
+	Node* toDelete = nlrSearch(nd, k);
+	if (nd == nullptr || toDelete == nullptr)
+		return false;
+	
+	std::cout << "sadas";
+	Node* parent = findParent(nd);
+
+	if (toDelete->left == nullptr || toDelete->right == nullptr)
+	{
+		if (parent)
+			if (parent->left == toDelete)
+				parent->left = nullptr;
+			else
+				parent->right = nullptr;
+		else
+			_root = nullptr;
+
+		delete toDelete;
+
+		return true;
+	}
+
+	if (toDelete->left != nullptr || toDelete->right == nullptr)
+	{
+		if (parent)
+			if (parent->left == toDelete)
+				parent->left = toDelete->left;
+			else
+				parent->right = toDelete->left;
+		else
+			_root = _root->left;
+
+
+		delete toDelete;
+
+		return true;
+	}
+
+	if (toDelete->left == nullptr || toDelete->right != nullptr)
+	{
+		std::cout << parent;
+		if (parent)
+			if (parent->left == toDelete)
+				parent->left = toDelete->right;
+			else
+				parent->right = toDelete->right;
+		else
+			_root = _root->right;
+
+
+
+		delete toDelete;
+
+		return true;
+	}
+
+	if (toDelete->left != nullptr || toDelete->right != nullptr)
+	{
+		Node* replacingNode = getMax(toDelete->left);
+		Node* replacingNodeParent = findParent(replacingNode);
+		if (parent)
+			if (parent->left == toDelete)
+				parent->left = replacingNode;
+			else
+				parent->right = replacingNode;
+		else
+			_root = replacingNode;
+
+		if (replacingNode == toDelete->left)
+			replacingNode->right = toDelete->right;
+		else
+		{
+			replacingNodeParent->right = replacingNode->left;	
+			replacingNode->right = toDelete->right;
+			replacingNode->left = toDelete->left;
+		}
+		delete toDelete;
+
+		return true;
+	}
 }

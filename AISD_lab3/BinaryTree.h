@@ -23,8 +23,8 @@ public:
 	void printTree();
 	void printTree(Node* nd);
 
-	Node* nlrSearch(const int k) const;
-	Node* nlrSearch(Node* nd, const int k) const;
+	virtual Node* nlrSearch(const int k) const;
+	virtual Node* nlrSearch(Node* nd, const int k) const;
 
 	Node* findParent(Node* nd) const;
 
@@ -34,8 +34,8 @@ public:
 	int getCountOfNode() const;
 	int getCountOfNode(Node* nd) const;
 
-	bool deleteNodeByKey(const int k);
-	bool deleteNodeByKey(Node* nd, const int k);
+	virtual bool deleteNodeByKey(const int k);
+	virtual bool deleteNodeByKey(Node* nd, const int k);
 
 	bool deleteNode(Node* nd, Node* parent);
 
