@@ -47,3 +47,37 @@ BinaryTree::Node* SearchTree::addNode(Node* nd, const int k)
 		}
 
 }
+
+BinaryTree::Node* SearchTree::getMin()
+{
+	return getMin(_root);
+}
+
+BinaryTree::Node* SearchTree::getMin(Node* nd)
+{
+	if (nd == nullptr)
+		return nullptr;
+
+	if (nd->left)
+		return getMin(nd->left);
+	else
+		return nd;
+
+}
+
+
+BinaryTree::Node* SearchTree::getMax()
+{
+	return getMax(_root);
+}
+
+BinaryTree::Node* SearchTree::getMax(Node* nd)
+{
+	if (nd == nullptr)
+		return nullptr;
+
+	if (nd->right)
+		return getMax(nd->right);
+	else
+		return nd;
+}
