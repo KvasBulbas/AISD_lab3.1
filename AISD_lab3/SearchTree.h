@@ -22,7 +22,8 @@ public:
 	bool deleteNodeByKey(const int k) override;
 	bool deleteNodeByKey(Node* nd, const int k) override;
 
-	
+	bool checkTree();
+	bool checkTree(Node* nd);
 	
 };
 

@@ -27,6 +27,9 @@ BinaryTree::Node* SearchTree::addNode(Node* nd, const int k)
 		else
 			return nullptr;
 	
+	if (nd->key == k)
+		return nullptr;
+
 	if (k < nd->key)
 	{
 		if (nd->left)
@@ -109,16 +112,16 @@ bool SearchTree::deleteNodeByKey(const int k)
 	return deleteNodeByKey(_root, k);
 }
 
-bool SearchTree::deleteNodeByKey(Node* nd, const int k)
+bool SearchTree::deleteNodeByKey(Node* nd, const int k)//доделать
 {
 	Node* toDelete = nlrSearch(nd, k);
 	if (nd == nullptr || toDelete == nullptr)
 		return false;
 	
-	std::cout << "sadas";
-	Node* parent = findParent(nd);
 
-	if (toDelete->left == nullptr || toDelete->right == nullptr)
+	Node* parent = findParent(toDelete);
+
+	if (toDelete->left == nullptr && toDelete->right == nullptr)
 	{
 		if (parent)
 			if (parent->left == toDelete)
@@ -133,7 +136,7 @@ bool SearchTree::deleteNodeByKey(Node* nd, const int k)
 		return true;
 	}
 
-	if (toDelete->left != nullptr || toDelete->right == nullptr)
+	if (toDelete->left != nullptr && toDelete->right == nullptr)
 	{
 		if (parent)
 			if (parent->left == toDelete)
@@ -149,9 +152,8 @@ bool SearchTree::deleteNodeByKey(Node* nd, const int k)
 		return true;
 	}
 
-	if (toDelete->left == nullptr || toDelete->right != nullptr)
+	if (toDelete->left == nullptr && toDelete->right != nullptr)
 	{
-		std::cout << parent;
 		if (parent)
 			if (parent->left == toDelete)
 				parent->left = toDelete->right;
@@ -160,14 +162,12 @@ bool SearchTree::deleteNodeByKey(Node* nd, const int k)
 		else
 			_root = _root->right;
 
-
-
 		delete toDelete;
 
 		return true;
 	}
 
-	if (toDelete->left != nullptr || toDelete->right != nullptr)
+	if (toDelete->left != nullptr && toDelete->right != nullptr)
 	{
 		Node* replacingNode = getMax(toDelete->left);
 		Node* replacingNodeParent = findParent(replacingNode);
@@ -177,8 +177,12 @@ bool SearchTree::deleteNodeByKey(Node* nd, const int k)
 			else
 				parent->right = replacingNode;
 		else
+		{
+			
 			_root = replacingNode;
 
+		}
+		
 		if (replacingNode == toDelete->left)
 			replacingNode->right = toDelete->right;
 		else
@@ -191,4 +195,40 @@ bool SearchTree::deleteNodeByKey(Node* nd, const int k)
 
 		return true;
 	}
+}
+
+
+
+bool SearchTree::checkTree()
+{
+	return checkTree(_root);
+}
+
+bool SearchTree::checkTree(Node* nd)
+{
+	if (nd)
+	{
+		if (nd->left)
+		{
+			if (nd->key < nd->left->key)
+			{
+				std::cout << "\nwrong right key: " << nd->key << '\n';
+				return false;
+			}
+			return nd->left;
+		}
+
+		if (nd->right)
+		{
+			if (nd->key > nd->right->key)
+			{
+				std::cout << "\nwrong right key: " << nd->key << '\n';
+				return false;
+			}
+			return nd->right;
+		}
+	}
+	return true;
+
+
 }
