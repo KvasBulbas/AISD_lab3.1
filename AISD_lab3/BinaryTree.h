@@ -14,8 +14,8 @@ public:
 
 	bool isEmpty() const;
 
-	Node* addNode(int k);
-	Node* addNode(Node* nd, int k);
+	virtual Node* addNode(const int k);
+	virtual Node* addNode(Node* nd, const int k);
 
 	int getHeight() const;
 	int getHeight(Node* nd) const;
