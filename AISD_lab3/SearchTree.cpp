@@ -112,7 +112,7 @@ bool SearchTree::deleteNodeByKey(const int k)
 	return deleteNodeByKey(_root, k);
 }
 
-bool SearchTree::deleteNodeByKey(Node* nd, const int k)//доделать
+bool SearchTree::deleteNodeByKey(Node* nd, const int k)
 {
 	Node* toDelete = nlrSearch(nd, k);
 	if (nd == nullptr || toDelete == nullptr)
@@ -146,7 +146,6 @@ bool SearchTree::deleteNodeByKey(Node* nd, const int k)//доделать
 		else
 			_root = _root->left;
 
-
 		delete toDelete;
 
 		return true;
@@ -177,11 +176,7 @@ bool SearchTree::deleteNodeByKey(Node* nd, const int k)//доделать
 			else
 				parent->right = replacingNode;
 		else
-		{
-			
 			_root = replacingNode;
-
-		}
 		
 		if (replacingNode == toDelete->left)
 			replacingNode->right = toDelete->right;
@@ -198,37 +193,3 @@ bool SearchTree::deleteNodeByKey(Node* nd, const int k)//доделать
 }
 
 
-
-bool SearchTree::checkTree()
-{
-	return checkTree(_root);
-}
-
-bool SearchTree::checkTree(Node* nd)
-{
-	if (nd)
-	{
-		if (nd->left)
-		{
-			if (nd->key < nd->left->key)
-			{
-				std::cout << "\nwrong right key: " << nd->key << '\n';
-				return false;
-			}
-			return nd->left;
-		}
-
-		if (nd->right)
-		{
-			if (nd->key > nd->right->key)
-			{
-				std::cout << "\nwrong right key: " << nd->key << '\n';
-				return false;
-			}
-			return nd->right;
-		}
-	}
-	return true;
-
-
-}

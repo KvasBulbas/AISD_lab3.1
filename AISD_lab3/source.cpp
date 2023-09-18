@@ -1,5 +1,6 @@
 #include <iostream>
 #include "SearchTree.h"
+#include "SearchTreeTester.h"
 #include <ctime>
 
 int main()
@@ -7,6 +8,8 @@ int main()
 	srand(time(NULL));
 
 	SearchTree obj1;
+	SearchTreeTester obj11(true);
+	obj11.test(50);
 	
 	/*for (int j = 0; j < 20; j++)
 	{
@@ -44,7 +47,7 @@ int main()
 
 	
 	
-	obj1.addNode(105);
+	/*obj1.addNode(105);
 	for (int i = 0; i < 15; i++)
 		obj1.addNode(rand() % 200 + 10);
 
@@ -54,6 +57,6 @@ int main()
 	SearchTree obj2 = obj1;
 	
 
-	obj2.printTree();
+	obj2.printTree();*/
 
 }
