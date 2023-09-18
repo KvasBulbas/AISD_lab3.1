@@ -1,2 +1,8 @@
 
 .vs/
+
+AISD_lab3/x64/Debug/
+
+x64/
+
+*.vcxproj
